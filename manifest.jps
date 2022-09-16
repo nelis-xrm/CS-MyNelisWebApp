@@ -5,13 +5,11 @@ name: Drupal
 logo: images/nelis-logo.jpeg
 homepage: https://www.mynelis.com/
 
-baseUrl: https://raw.githubusercontent.com/jelastic-jps/drupal/master/
+baseUrl: https://raw.githubusercontent.com/FlorentHosteur/nelistest/main/
 mixins:
 - configs/vers.yaml
 
 globals:
-  ADMIN_PASS: "${fn.password}"
-  DB_PASS: "${fn.password(6)}"
   COMPOSER_PATH: "/var/web/webroot/Composer"
   LOG_FILE: "/composer.log"
 
@@ -39,6 +37,17 @@ actions:
             sudo dnf install symfony-cli
         user: root
 
+    Config-PHPINI
+        cmd [cp]: |-
+          echo "extension=gd.so;
+          mbstring.encoding_translation = 0;
+          zend_extension=/usr/lib64/php/modules/opcache.so;" > /etc/php.d/nelis-php.ini
+        user: root
+
+    Custom-Script
+        cmd [cp]: |-
+          echo "Hello Nelis" > /tmp/nelistest.txt
+        user: root
 
 success: |
   Nelis template installation completed!
