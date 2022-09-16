@@ -26,18 +26,10 @@ nodes:
     engine: ${globals.version_php}
 
 onInstall:
-  - Install-Composer
   - Config-PHPINI
   - Custom-Script
 
 actions:
-    Install-Composer:
-        cmd [cp]: |-    
-            curl -fsSL "https://getcomposer.org/installer" -o ${globals.COMPOSER_PATH}/installer 2>&1 1>>${globals.COMPOSER_PATH}${globals.LOG_FILE} && php installer 2>&1 1>>${globals.COMPOSER_PATH}${globals.LOG_FILE}
-            curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.rpm.sh' | sudo -E bash
-            sudo dnf install symfony-cli
-        user: root
-
     Config-PHPINI:
         cmd [cp]: |-
           echo "extension=gd.so;
