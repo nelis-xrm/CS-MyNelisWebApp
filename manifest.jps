@@ -1,50 +1,51 @@
 type: install
-version: 1.7.3
-id: drupal
-name: Drupal
+version: 0.0.1
+id: neliswebapp
+name: Nelis Web App
 logo: images/nelis-logo.jpeg
 homepage: https://www.mynelis.com/
 
 baseUrl: https://raw.githubusercontent.com/FlorentHosteur/nelistest/main/
+
 mixins:
-- configs/vers.yaml
+  - configs/vers.yaml
 
 globals:
   COMPOSER_PATH: "/var/web/webroot/Composer"
   LOG_FILE: "/composer.log"
 
-  description: Default Nelis web plateforme template
+description: Default Nelis web plateforme template
 
 nodes:
-- cloudlets: 6
-  nodeType: haproxy2
-  
-  
-- cloudlets: 16
-  nodeType: nginxphp
-  engine: ${globals.version_drupal}
+  - cloudlets: 6
+    nodeType: haproxy2
+    
+    
+  - cloudlets: 16
+    nodeType: nginxphp
+    engine: ${globals.version_php}
 
 onInstall:
-- Install-Composer
-- Config-PHPINI
-- Custom-Script
+  - Install-Composer
+  - Config-PHPINI
+  - Custom-Script
 
 actions:
-    Install-Composer
+    Install-Composer:
         cmd [cp]: |-    
             curl -fsSL "https://getcomposer.org/installer" -o ${globals.COMPOSER_PATH}/installer 2>&1 1>>${globals.COMPOSER_PATH}${globals.LOG_FILE} && php installer 2>&1 1>>${globals.COMPOSER_PATH}${globals.LOG_FILE}
             curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.rpm.sh' | sudo -E bash
             sudo dnf install symfony-cli
         user: root
 
-    Config-PHPINI
+    Config-PHPINI:
         cmd [cp]: |-
           echo "extension=gd.so;
           mbstring.encoding_translation = 0;
           zend_extension=/usr/lib64/php/modules/opcache.so;" > /etc/php.d/nelis-php.ini
         user: root
 
-    Custom-Script
+    Custom-Script:
         cmd [cp]: |-
           echo "Hello Nelis" > /tmp/nelistest.txt
         user: root
