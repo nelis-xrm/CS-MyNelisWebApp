@@ -1,0 +1,44 @@
+type: install
+version: 1.7.3
+id: drupal
+name: Drupal
+logo: images/nelis-logo.jpeg
+homepage: https://www.mynelis.com/
+
+baseUrl: https://raw.githubusercontent.com/jelastic-jps/drupal/master/
+mixins:
+- configs/vers.yaml
+
+globals:
+  ADMIN_PASS: "${fn.password}"
+  DB_PASS: "${fn.password(6)}"
+  COMPOSER_PATH: "/var/web/webroot/Composer"
+  LOG_FILE: "/composer.log"
+
+  description: Default Nelis web plateforme template
+
+nodes:
+- cloudlets: 6
+  nodeType: haproxy2
+  
+  
+- cloudlets: 16
+  nodeType: nginxphp
+  engine: ${globals.version_drupal}
+
+onInstall:
+- Install-Composer
+- Config-PHPINI
+- Custom-Script
+
+actions:
+    Install-Composer
+        cmd [cp]: |-    
+            curl -fsSL "https://getcomposer.org/installer" -o ${globals.COMPOSER_PATH}/installer 2>&1 1>>${globals.COMPOSER_PATH}${globals.LOG_FILE} && php installer 2>&1 1>>${globals.COMPOSER_PATH}${globals.LOG_FILE}
+            curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.rpm.sh' | sudo -E bash
+            sudo dnf install symfony-cli
+        user: root
+
+
+success: |
+  Nelis template installation completed!
