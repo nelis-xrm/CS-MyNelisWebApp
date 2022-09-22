@@ -5,7 +5,7 @@ name: Nelis Web App
 logo: images/nelis-logo.jpeg
 homepage: https://www.mynelis.com/
 
-baseUrl: https://raw.githubusercontent.com/FlorentHosteur/nelistest/main/
+baseUrl: https://raw.githubusercontent.com/nelis-xrm/nelistest/main/
 
 mixins:
   - configs/vers.yaml
