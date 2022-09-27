@@ -22,7 +22,6 @@ nodes:
   - cloudlets: 6
     nodeType: haproxy2
     
-    
   - nodeGroup: cp
     cloudlets: 16
     image: jelastic/nginxphp:1.18.0-php-7.2.34
@@ -36,7 +35,9 @@ actions:
         cmd [cp]: |-
           echo "extension=gd.so;
           mbstring.encoding_translation = 0;
-          zend_extension=/usr/lib64/php/modules/opcache.so;" > /etc/php.d/mynelis-php.ini
+          zend_extension=/usr/lib64/php/modules/opcache.so;
+          extension=imap.so;
+          extension=xsl.so;" > /etc/php.d/mynelis-php.ini
         user: root
 
     Custom-Script:
