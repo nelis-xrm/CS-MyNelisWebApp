@@ -16,6 +16,8 @@ globals:
 
 description: Default MyNelis web plateforme template
 
+envGroups: "MyNelis"
+
 nodes:
   - cloudlets: 6
     nodeType: haproxy2
