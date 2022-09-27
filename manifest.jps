@@ -22,7 +22,6 @@ nodes:
     
     
   - nodeGroup: cp
-    nodeType: nginxphp-dockerized
     cloudlets: 16
     image: jelastic/nginxphp:1.18.0-php-7.2.34
 
