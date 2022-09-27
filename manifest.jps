@@ -21,9 +21,10 @@ nodes:
     nodeType: haproxy2
     
     
-  - cloudlets: 16
+  - nodeGroup: cp
     nodeType: nginxphp
-    engine: ${globals.version_php}
+    cloudlets: 16
+    image: jelastic/nginxphp:1.16.0-php-7.2.31
 
 onInstall:
   - Config-PHPINI
