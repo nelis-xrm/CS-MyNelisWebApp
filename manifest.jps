@@ -24,7 +24,7 @@ nodes:
     
   - nodeGroup: cp
     cloudlets: 16
-    image: jelastic/nginxphp:1.18.0-php-7.2.34
+    image: jelastic/nginxphp:1.22.0-php-7.4.32
 
 onInstall:
   - Config-PHPINI
