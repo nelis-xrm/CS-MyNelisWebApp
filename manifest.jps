@@ -28,7 +28,7 @@ nodes:
 
 onInstall:
   - Config-PHPINI
-  - Custom-Script
+  - Install-Wkhtmltopdf
 
 actions:
     Config-PHPINI:
@@ -39,10 +39,12 @@ actions:
           extension=imap.so;
           extension=xsl.so;" > /etc/php.d/mynelis-php.ini
         user: root
-
-    Custom-Script:
+        
+    Install-Wkhtmltopdf:
         cmd [cp]: |-
-          echo "Hello Nelis" > /tmp/mynelistest.txt
+          which apt > /tmp/which-apt.log;
+          which yum > /tmp/which-yum.log;
+          which apk > /tmp/which-apk.log;
         user: root
 
 success: |
