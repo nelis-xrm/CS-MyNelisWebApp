@@ -27,10 +27,16 @@ nodes:
     image: jelastic/nginxphp:1.18.0-php-7.2.34
 
 onInstall:
+  - System-Update
   - Config-PHPINI
   - Install-WkHtmlToPDF
 
 actions:
+    System-Update:
+        cmd [cp]: |-
+          yum update -y
+        user: root
+
     Config-PHPINI:
         cmd [cp]: |-
           echo "extension=gd.so;
@@ -39,7 +45,8 @@ actions:
           extension=imap.so;
           extension=xsl.so;
           extension=imagick.so;
-          extension=intl.so;" > /etc/php.d/mynelis-php.ini
+          extension=intl.so; 
+          extension=sodium;" > /etc/php.d/mynelis-php.ini
         user: root
         
     Install-WkHtmlToPDF:
