@@ -46,13 +46,15 @@ actions:
           extension=xsl.so;
           extension=imagick.so;
           extension=intl.so; 
-          extension=sodium;" > /etc/php.d/mynelis-php.ini
+          extension=sodium;
+          memory_limit=4096M;" > /etc/php.d/mynelis-php.ini
         user: root
         
     Install-WkHtmlToPDF:
         cmd [cp]: |-
           wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos7.x86_64.rpm -O wkhtmltopdf.rpm;
-          yum install ./wkhtmltopdf.rpm;
+          yum install -y ./wkhtmltopdf.rpm;
+          rm -f ./wkhtmltopdf.rpm;
         user: root
 
 success: |
