@@ -27,22 +27,32 @@ nodes:
     image: jelastic/nginxphp:1.22.0-php-7.4.32
 
 onInstall:
+  - System-Update
   - Config-PHPINI
-  - Custom-Script
+  - Install-WkHtmlToPDF
 
 actions:
+    System-Update:
+        cmd [cp]: |-
+          yum update -y
+        user: root
+
     Config-PHPINI:
         cmd [cp]: |-
           echo "extension=gd.so;
           mbstring.encoding_translation = 0;
           zend_extension=/usr/lib64/php/modules/opcache.so;
           extension=imap.so;
-          extension=xsl.so;" > /etc/php.d/mynelis-php.ini
+          extension=xsl.so;
+          extension=imagick.so;
+          extension=intl.so; 
+          extension=sodium;" > /etc/php.d/mynelis-php.ini
         user: root
-
-    Custom-Script:
+        
+    Install-WkHtmlToPDF:
         cmd [cp]: |-
-          echo "Hello Nelis" > /tmp/mynelistest.txt
+          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos7.x86_64.rpm -O wkhtmltopdf.rpm;
+          yum install ./wkhtmltopdf.rpm;
         user: root
 
 success: |
