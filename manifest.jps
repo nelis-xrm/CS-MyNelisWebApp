@@ -3,7 +3,7 @@ version: 0.0.1
 id: myneliswebapp
 name: MyNelis Web App
 logo: images/nelis-logo.jpeg
-homepage: https://www.mynelis.com/
+homepage: https://www.nelis.fr
 
 baseUrl: https://raw.githubusercontent.com/nelis-xrm/CS-MyNelisWebApp/feature/php7.4/
 
